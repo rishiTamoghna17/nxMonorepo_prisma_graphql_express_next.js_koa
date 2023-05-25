@@ -12,6 +12,9 @@ const nextConfig = {
     // See: https://github.com/gregberge/svgr
     svgr: false,
   },
+  image:{
+    domains:{}
+  }
 };
 
 const plugins = [
