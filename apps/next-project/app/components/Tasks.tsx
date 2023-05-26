@@ -1,5 +1,5 @@
 "use client";
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import {gql}from "@apollo/client"
 import "./task.css"
 
@@ -20,6 +20,10 @@ const query = gql`query {
 export default function todoList() {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const { data }:any = useSuspenseQuery(query,{fetchPolicy: "no-cache" },);
+  const [hydrated, setHydrated] = useState(false);
+  useEffect(() => {
+    setHydrated(true);
+  },[])
 
   return (
     <div className = "to-do-list">

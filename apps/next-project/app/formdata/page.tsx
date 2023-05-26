@@ -2,13 +2,13 @@
 import React, { useState } from "react";
 import "./FormDataStyle.css";
 
-const FormComponent = ({ onSubmit }) => {
+const FormComponent = ({ onSubmit }:any) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
 
-  const handleSubmit = (event) => {
+  const handleSubmit = (event:any) => {
     event.preventDefault();
     const userData = { name, email, phone, address };
     console.log(userData);

@@ -5,7 +5,7 @@ async function page({params:{countryName}}: {
   const data = await getData(countryName);
   return (
     <div className = "university-list">
-    <ol className="university-list"> 
+    <ul className="university-list"> 
     {data.slice(0, 48).map((item:any, index:any) => (
     <div className="card" key={index}>
       <h2>{item.name}</h2>
@@ -16,7 +16,7 @@ async function page({params:{countryName}}: {
       <p>Web Pages: {item.web_pages.join(', ')}</p>
     </div>
   ))}
-    </ol>
+    </ul>
     </div>
     // <div>tamoghna</div>
   );

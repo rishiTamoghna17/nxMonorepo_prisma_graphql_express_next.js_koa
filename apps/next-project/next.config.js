@@ -12,8 +12,8 @@ const nextConfig = {
     // See: https://github.com/gregberge/svgr
     svgr: false,
   },
-  image:{
-    domains:{}
+  images:{
+    domains:["cdn2.thedogapi.com"]
   }
 };
 
