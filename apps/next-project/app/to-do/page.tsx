@@ -1,6 +1,10 @@
 import React from 'react'
 import Tasks from '../components/Tasks'
-
+import dynamic from 'next/dynamic';
+ 
+const DynamicTasks = dynamic(() => import('../components/Tasks'), {
+  loading: () => <p>Loading...</p>,
+});
 function index() {
   const myStyle = {
     "height": "100%",
@@ -12,7 +16,7 @@ function index() {
   return (
     <div >
     <h1 style={myStyle}>Task List</h1>
-    <Tasks />
+    <DynamicTasks />
   </div>
 
   )

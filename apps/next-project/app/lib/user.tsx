@@ -1,4 +1,3 @@
-import React from 'react'
 
 function user() {
     const url = "https://jsonplaceholder.typicode.com/users"
