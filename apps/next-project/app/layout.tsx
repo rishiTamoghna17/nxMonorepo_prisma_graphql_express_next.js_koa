@@ -4,6 +4,7 @@ export const metadata = {
 };
 
 import Navbar from './components/Navbar';
+import Providers from './components/Providers';
 export default function RootLayout({
   children,
 }: {
@@ -12,8 +13,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body suppressHydrationWarning={true}>
-        <Navbar />
-        {children}
+        <Providers>
+          <Navbar />
+          {children}
+        </Providers>
       </body>
     </html>
   );
