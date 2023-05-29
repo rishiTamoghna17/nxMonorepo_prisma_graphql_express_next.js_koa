@@ -1,4 +1,5 @@
-import React from 'react';
+'use client';
+import React, { useEffect } from 'react';
 import Dog from './components/RandomDog';
 
 function page() {
@@ -52,7 +53,6 @@ function page() {
       </div>
     </>
   );
-  
 }
 
 export default page;

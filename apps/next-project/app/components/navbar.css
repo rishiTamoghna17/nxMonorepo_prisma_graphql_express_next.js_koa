@@ -1,19 +1,30 @@
 nav {
-    background-color: #f1f1f1;
-    padding: 20px;
-    display: flex;
-    justify-content: center;
-  }
-  
-  nav a {
-    text-decoration: none;
-    color: #333;
-    margin: 0 10px;
-    font-weight: bold;
-    transition: color 0.3s ease-in-out;
-  }
-  
-  nav a:hover {
-    color: #ff5f5f;
-  }
+  background-color: #f1f1f1;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.logout {
+  text-decoration: none;
+  color: #ff0000; /* Updated to red color */
+  margin: 0 10px;
+  font-weight: bold;
+  font-size: 16px; /* Adjust the font size as desired */
+  transition: color 0.3s ease-in-out;
+}
+
+nav a {
+  text-decoration: none;
+  color: #333;
+  margin: 0 10px;
+  font-weight: bold;
+  font-size: 16px; /* Adjust the font size as desired */
+  transition: color 0.3s ease-in-out;
+}
+
+nav a:hover {
+  color: #ff5f5f;
+}
+
   

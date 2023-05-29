@@ -3,24 +3,34 @@ const Router = require('koa-router');
 const bodyParser = require('koa-bodyparser');
 import { PrismaClient } from '@prisma/client';
 import bcrypt from 'bcrypt';
+const jwt = require('jsonwebtoken');
+const json = require('koa-json');
+import cors from '@koa/cors';
+const authenticateMiddleware = require('./middleware/authMiddleware')
 
 const prisma = new PrismaClient();
 const app = new Koa();
 const router = new Router();
 app.use(bodyParser());
+app.use(json());
+app.use(cors());
 
-router.post('/signup', async (ctx) => {
+
+router.post('/signup',async (ctx) => {
   try {
     const { email, name, password } = ctx.request.body;
     if (!name || !email || !password) {
-      ctx.throw(400, 'Missing required fields');
+      ctx.body = ({message:'Missing required fields'});
+      ctx.status = 404;
     }
     const existingUser = await prisma.user.findUnique({
       where: {
         email: email,
       },
     });
-    if (existingUser) ctx.throw(400, `${email} is already present`);
+    if (existingUser) 
+    ctx.status = 401;
+    ctx.body=({message: `${email} is already present`});
 
     await prisma.user.create({
       data: {
@@ -33,7 +43,7 @@ router.post('/signup', async (ctx) => {
     ctx.body = { message: 'User created successfully' };
   } catch (err) {
     console.log(err);
-    ctx.status = err.status || 500;
+    ctx.status = err.status;
     ctx.body = err.message;
   }
 });
@@ -41,7 +51,7 @@ router.post('/signup', async (ctx) => {
 router.post(
   '/login',
   async (ctx) => {
-    const { username, password, email } = ctx.request.body;
+    const { password, email } = ctx.request.body;
 
     // Check if the provided username and password match a user in the database
     const user = await prisma.user.findUnique({
@@ -51,21 +61,24 @@ router.post(
     });
     if (!user) {
       ctx.status = 401;
-      ctx.body = null;
+      ctx.body = {message:"user already exist"};
     }
-    if (user && (await bcrypt.compare(password, user.password))){
-      // Authentication successful
+    else if (user && (await bcrypt.compare(password, user.password))){
+      const token = jwt.sign({
+        userId: user.id.toString(),
+      }, "very_import_token");
+      ctx.set("authorization", token)
       ctx.status = 200;
-      ctx.body = JSON.stringify(user); 
+      ctx.body = {message:"User log in successfully",id:user.id,"token":token}; 
     }else{
       // console.log(await bcrypt.compare(password, user.password))
       ctx.status = 401;
-      ctx.body = JSON.stringify(null)
+      ctx.body = {message:"unauthenticated person"}
     }
   }
 );
 
-router.get('/user', async (ctx) => {
+router.get('/user',authenticateMiddleware, async (ctx) => {
   try {
     const users = await prisma.user.findMany();
     ctx.status = 200;
