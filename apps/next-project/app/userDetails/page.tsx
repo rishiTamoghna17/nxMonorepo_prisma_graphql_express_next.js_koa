@@ -6,15 +6,17 @@ function page() {
   const router = useRouter();
   const [user, setUser] = useState();
   const [hydrated, setHydrated] = useState(false);
+  const token = localStorage.getItem('authToken');
   useEffect(() => {
     setHydrated(true);
+    if (!token) return router.push('/login');
     fetch('http://localhost:3000/user', {
       method: 'GET',
       cache: 'no-cache',
       headers: {
         'Content-Type': 'application/json',
         Accept: 'application/json',
-        // Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
     })
       .then((res) => res.json())
