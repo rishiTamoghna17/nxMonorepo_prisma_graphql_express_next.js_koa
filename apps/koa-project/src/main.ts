@@ -67,7 +67,7 @@ router.post(
       const token = jwt.sign({
         userId: user.id.toString(),
       }, "very_import_token");
-      ctx.set("authorization", token)
+      // ctx.set("authorization", token)
       ctx.status = 200;
       ctx.body = {message:"User log in successfully",id:user.id,"token":token}; 
     }else{
@@ -78,7 +78,7 @@ router.post(
   }
 );
 
-router.get('/user',authenticateMiddleware, async (ctx) => {
+router.get('/user', async (ctx) => {
   try {
     const users = await prisma.user.findMany();
     ctx.status = 200;

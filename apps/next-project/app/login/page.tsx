@@ -1,5 +1,5 @@
 import React from 'react'
-import LiginForm from '../components/LoginForm';
+import LoginForm from '../components/LoginForm';
 
 function page() {
   return (
@@ -8,7 +8,7 @@ function page() {
 "position": "relative",
 "left": "40%",
 }}>Login In</h1>
-    <LiginForm formUser="form-input-hide"/>
+    <LoginForm formUser="form-input-hide"/>
   </div>
 );
 }

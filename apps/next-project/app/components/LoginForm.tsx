@@ -1,58 +1,33 @@
 'use client';
 import React, { useState } from 'react';
 import './SignupForm.css';
-import { useRouter } from 'next/navigation';
+import { signIn } from 'next-auth/react';
 
-
-const LiginForm = (props: any) => {
+const LoginForm = (props: any) => {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
   });
-  const [submit, setSubmit] = useState(false);
-
-  const router = useRouter();
+  // const [submit, setSubmit] = useState(false);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    fetch('http://localhost:3000/login', {
-      method: 'POST',
-      cache: 'no-cache',
-      mode: 'cors',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-      },
-      body: JSON.stringify(formData),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.message == 'User log in successfully') {
-          alert('User log in successfully');
-          localStorage.setItem('authToken', data.token);
-          router.push('/');
-        }if (data.message == "user not found" ||data.message == "unauthenticated person") {
-            alert('user or password not matched');
-          }
-        
-      })
-      .catch((error) => error.message);
-
-    // Perform form validation and submit the data to the server
-    // You can make an API request to the backend here
-    // console.log(formData);
-    // Reset the form fields
-    setFormData({
-      email: '',
-      password: '',
-    });
-    setSubmit(true);
+    authenticationUser().then((user)=>console.log(user));
   };
 
+  const authenticationUser = async () => {
+    await signIn('credentials', {
+      email: formData.email,
+      password: formData.password,
+      redirect: true,
+      callbackUrl: '/',
+    });
+  };
   return (
     <form className="form-data" onSubmit={handleSubmit}>
       <div>
@@ -80,4 +55,4 @@ const LiginForm = (props: any) => {
   );
 };
 
-export default LiginForm;
+export default LoginForm;
