@@ -1,6 +1,6 @@
 
 function user() {
-    const url = "https://jsonplaceholder.typicode.com/users"
+    const url = "http://localhost:3000/user"
     return (
       fetch(url).then(res=>res.json())
     )

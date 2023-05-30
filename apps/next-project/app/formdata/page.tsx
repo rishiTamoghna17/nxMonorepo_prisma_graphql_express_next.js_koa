@@ -11,7 +11,7 @@ const FormComponent = ({ onSubmit }:any) => {
   const handleSubmit = (event:any) => {
     event.preventDefault();
     const userData = { name, email, phone, address };
-    console.log(userData);
+    // console.log(userData);
     alert("form submitted successfully");
     // setEmail('');
     // setPhone('');
