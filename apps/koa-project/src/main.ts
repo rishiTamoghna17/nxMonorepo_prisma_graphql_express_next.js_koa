@@ -28,6 +28,7 @@ router.post('/signup',async (ctx) => {
         email: email,
       },
     });
+
     if (existingUser) 
     ctx.status = 401;
     ctx.body=({message: `${email} is already present`});
@@ -60,16 +61,16 @@ router.post(
       },
     });
     if (!user) {
-      ctx.status = 401;
-      ctx.body = {message:"user already exist"};
+      ctx.status = 400;
+      ctx.body = {message:"user not exist"};
     }
     else if (user && (await bcrypt.compare(password, user.password))){
       const token = jwt.sign({
         userId: user.id.toString(),
       }, "very_import_token");
-      ctx.set("authorization", token)
+      // ctx.set("authorization", token)
       ctx.status = 200;
-      ctx.body = {message:"User log in successfully",id:user.id,"token":token}; 
+      ctx.body = {message:"User log in successfully",name:user.name,email:user.email,id:user.id,token:token}; 
     }else{
       // console.log(await bcrypt.compare(password, user.password))
       ctx.status = 401;
@@ -78,7 +79,7 @@ router.post(
   }
 );
 
-router.get('/user',authenticateMiddleware, async (ctx) => {
+router.get('/user', async (ctx) => {
   try {
     const users = await prisma.user.findMany();
     ctx.status = 200;

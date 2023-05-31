@@ -1,7 +1,8 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './SignupForm.css';
 import { useRouter } from 'next/navigation';
+import { signIn, useSession } from "next-auth/react";
 
 
 const LiginForm = (props: any) => {
@@ -9,48 +10,70 @@ const LiginForm = (props: any) => {
     email: '',
     password: '',
   });
-  const [submit, setSubmit] = useState(false);
+  // const [submit, setSubmit] = useState(false);
 
   const router = useRouter();
+  const { data: session } = useSession();
+  const user = session?.user;
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  // useEffect(() => {
+  //   if(user){
+  //     router.push("/userDetails")
+  //   }else{
+  //     router.push("/login")
+  //   }
+  // },[user])
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    fetch('http://localhost:3000/login', {
-      method: 'POST',
-      cache: 'no-cache',
-      mode: 'cors',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-      },
-      body: JSON.stringify(formData),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.message == 'User log in successfully') {
-          alert('User log in successfully');
-          localStorage.setItem('authToken', data.token);
-          router.push('/');
-        }if (data.message == "user not found" ||data.message == "unauthenticated person") {
-            alert('user or password not matched');
-          }
+    authenticateUser()
+    // ****************** login ********************************
+    // fetch('http://localhost:3000/login', {
+    //   method: 'POST',
+    //   cache: 'no-cache',
+    //   mode: 'cors',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //     Accept: 'application/json',
+    //   },
+    //   body: JSON.stringify(formData),
+    // })
+    //   .then((response) => response.json())
+    //   .then((data) => {
+    //     if (data.message == 'User log in successfully') {
+    //       alert('User log in successfully');
+    //       localStorage.setItem('authToken', data.token);
+    //       router.push('/');
+    //     }if (data.message == "user not found" ||data.message == "unauthenticated person") {
+    //         alert('user or password not matched');
+    //       }
         
-      })
-      .catch((error) => error.message);
+    //   })
+    //   .catch((error) => error.message);
 
     // Perform form validation and submit the data to the server
     // You can make an API request to the backend here
     // console.log(formData);
     // Reset the form fields
-    setFormData({
-      email: '',
-      password: '',
+    // setFormData({
+    //   email: '',
+    //   password: '',
+    // });
+    // setSubmit(true);
+  };
+
+  //Handle Login API Integration here
+  const authenticateUser = async () => {
+    await signIn("credentials", {
+      redirect: false,
+      email: formData.email,
+      password: formData.password,
+      // callbackUrl : `${window.location.origin}/userDetails`,
     });
-    setSubmit(true);
   };
 
   return (
