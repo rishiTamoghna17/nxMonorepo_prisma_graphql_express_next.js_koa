@@ -2,21 +2,26 @@
 import React, { useEffect, useState } from 'react';
 import './user.css';
 import { useRouter } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 function page() {
-  const router = useRouter();
   const [user, setUser] = useState();
   const [hydrated, setHydrated] = useState(false);
+  
+  const router = useRouter();
+  const { data: session } = useSession();
+  const userDetail = session?.user;
+  const token = userDetail?.access_token
   // const token = localStorage.getItem('authToken');
   useEffect(() => {
     setHydrated(true);
-    // if (!token) return router.push('/login');
+    if (!token) return router.push('/login');
     fetch('http://localhost:3000/user', {
       method: 'GET',
       cache: 'no-cache',
       headers: {
         'Content-Type': 'application/json',
         Accept: 'application/json',
-        // Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
     })
       .then((res) => res.json())
@@ -31,7 +36,9 @@ function page() {
 }
 
   return (
-<>
+<div className="container">
+
+{/* <p className='login-card'> {userDetail?`${userDetail?.name} is logged in`:"please login"}</p> */}
   <h1 style={{
 "position": "relative",
 "left": "40%",
@@ -51,7 +58,7 @@ function page() {
   ) : (
     <p>Loading...</p>
   )}
-</>
+</div>
 
   );
 }

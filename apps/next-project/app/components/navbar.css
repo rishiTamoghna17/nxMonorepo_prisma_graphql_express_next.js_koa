@@ -2,17 +2,33 @@ nav {
   background-color: #f1f1f1;
   padding: 20px;
   display: flex;
-  justify-content: center;
+  align-items: center; 
 }
 
 .logout {
   text-decoration: none;
-  color: #ff0000; /* Updated to red color */
+  color: #ff0000; /* Red color for logout button */
+  background-color: transparent;
+  border: none;
   margin: 0 10px;
   font-weight: bold;
   font-size: 16px; /* Adjust the font size as desired */
   transition: color 0.3s ease-in-out;
+  cursor: pointer;
 }
+
+.logout:hover {
+  color: #311e1e; /* Darker red color on hover */
+}
+
+.logout:focus {
+  outline: none;
+}
+
+.logout:active {
+  transform: translateY(1px);
+}
+
 
 nav a {
   text-decoration: none;
@@ -27,4 +43,29 @@ nav a:hover {
   color: #ff5f5f;
 }
 
-  
+.login-card {
+  background-color: #3a3094;
+  padding: 10px;
+  border-radius: 5px;
+  transition: color 0.3s ease-in-out;
+  color: white;
+  font-weight: bold;
+}
+.login-card:hover {
+  color: #dd2020; /* Darker red color on hover */
+}
+
+/* .login-card:focus {
+  outline: none;
+} */
+
+/* .login-card:active {
+  transform: translateY(1px);
+} */
+
+
+
+/* .login-card::after {
+  display: none;
+visibility: hidden;
+} */

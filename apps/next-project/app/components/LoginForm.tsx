@@ -15,22 +15,25 @@ const LiginForm = (props: any) => {
   const router = useRouter();
   const { data: session } = useSession();
   const user = session?.user;
-
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // useEffect(() => {
-  //   if(user){
-  //     router.push("/userDetails")
-  //   }else{
-  //     router.push("/login")
-  //   }
-  // },[user])
+  useEffect(() => {
+    if(user){
+      router.push("/userDetails")
+    }
+  },[user])
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     authenticateUser()
+    
+    setFormData({
+      email: '',
+      password: '',
+    });
     // ****************** login ********************************
     // fetch('http://localhost:3000/login', {
     //   method: 'POST',
@@ -59,10 +62,6 @@ const LiginForm = (props: any) => {
     // You can make an API request to the backend here
     // console.log(formData);
     // Reset the form fields
-    // setFormData({
-    //   email: '',
-    //   password: '',
-    // });
     // setSubmit(true);
   };
 
@@ -102,5 +101,6 @@ const LiginForm = (props: any) => {
     </form>
   );
 };
+
 
 export default LiginForm;

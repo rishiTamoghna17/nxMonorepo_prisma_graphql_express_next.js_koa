@@ -4,12 +4,14 @@ import "./navbar.css"
 import React from 'react';
 // import SigningButton from './SigningButton';
 import{useRouter} from 'next/navigation'
+import { signOut, useSession } from 'next-auth/react';
 
 function Navbar() {
-  const router = useRouter()
+  const router = useRouter();
+  const { data: session } = useSession();
+  const userDetail = session?.user;
   const handleLogout = () => {
-    localStorage.removeItem("authToken");
-    router.push('/login');
+    signOut({ redirect: false, }).then(()=> router.push("/login"))
   }
   return (
     <nav>
@@ -20,7 +22,8 @@ function Navbar() {
       <Link href="/userDetails">User Details</Link>
       <Link href="/signUp">register</Link>
       <Link href="/login">login</Link>
-      <h1 className='logout' onClick={handleLogout}>logout</h1>
+      <p className='logout' onClick={handleLogout}>logout</p>
+      <p className='login-card'> {userDetail?`${userDetail?.name}`:"please Signin"}</p>
     </nav>
   );
 }
