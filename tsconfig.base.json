@@ -15,7 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@xyz/my-new-lib": ["libs/my-new-lib/src/index.ts"],
+      "@xyz/mylib": ["mylib/src/index.ts"],
       "@xyz/my-new-lib/server": ["libs/my-new-lib/src/server.ts"]
     }
   },

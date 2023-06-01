@@ -7,9 +7,9 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      ="postgres://prisma_graphql_user:HCKRUG4P96S5AihAxvaPEUpaLmxNJ72e@dpg-chng9u7dvk4n43c52hbg-a.singapore-postgres.render.com/prisma_graphql"
+  url      = "postgres://postgres:frir7@aMX4Nc9@h@db.hvlovpmiicdsonejhahh.supabase.co:5432/postgres"
 }
-
+//"postgres://prisma_graphql_user:HCKRUG4P96S5AihAxvaPEUpaLmxNJ72e@dpg-chng9u7dvk4n43c52hbg-a.singapore-postgres.render.com/prisma_graphql"
 model User {
   id        Int      @id @default(autoincrement())
   email     String   @unique
@@ -23,4 +23,12 @@ model User {
 enum Role {
   user
   admin
+}
+
+model Task {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  title  String?
+  isComplete Boolean  @default(false)
 }

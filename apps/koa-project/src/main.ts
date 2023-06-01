@@ -1,19 +1,22 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 import Koa from 'koa';
 const Router = require('koa-router');
 const bodyParser = require('koa-bodyparser');
-import { PrismaClient } from '@prisma/client';
+import { prisma } from '@xyz/mylib';
 import bcrypt from 'bcrypt';
 const jwt = require('jsonwebtoken');
 const json = require('koa-json');
 import cors from '@koa/cors';
+const passport = require('koa-passport')
 const authenticateMiddleware = require('./middleware/authMiddleware')
-
-const prisma = new PrismaClient();
+const initializingPassport = require('./middleware/passport')
+initializingPassport(passport)
 const app = new Koa();
 const router = new Router();
 app.use(bodyParser());
 app.use(json());
 app.use(cors());
+app.use(passport.initialize());
 
 
 router.post('/signup',async (ctx) => {
@@ -28,11 +31,12 @@ router.post('/signup',async (ctx) => {
         email: email,
       },
     });
+    if (existingUser) {
+      ctx.status = 401;
+      console.log("console",existingUser);
 
-    if (existingUser) 
-    ctx.status = 401;
-    ctx.body=({message: `${email} is already present`});
-
+      ctx.body=({message: `${email} is already present`});
+    }
     await prisma.user.create({
       data: {
         email: email,
@@ -67,6 +71,7 @@ router.post(
     else if (user && (await bcrypt.compare(password, user.password))){
       const token = jwt.sign({
         userId: user.id.toString(),
+        email: user.email,
       }, "very_import_token");
       ctx.set("authorization", token)
       ctx.status = 200;
@@ -79,7 +84,7 @@ router.post(
   }
 );
 
-router.get('/user',authenticateMiddleware, async (ctx) => {
+router.get('/user',passport.authenticate('jwt', { session: false }), async (ctx) => {
   try {
     const users = await prisma.user.findMany();
     ctx.status = 200;
