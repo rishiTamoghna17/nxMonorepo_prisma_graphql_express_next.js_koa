@@ -63,7 +63,7 @@ function Page() {
         // Remove the deleted user from the user list
         const updatedUser = user.filter((u) => u.id !== id);
         setUser(updatedUser);
-          alert('deleted user');
+        alert('deleted user');
       })
       .catch((err) => {
         throw new Error(err.message);
@@ -102,7 +102,7 @@ function Page() {
   if (!hydrated) {
     return null;
   }
-  
+
   return (
     <div className="container">
       <h1 className="title">User Details</h1>
@@ -111,9 +111,11 @@ function Page() {
           {user.map((user) => (
             <div
               key={user.id}
-              className={`user-card ${selectedUser && selectedUser.id === user.id ? "open-form" : ""}`}
+              className={`user-card ${
+                selectedUser && selectedUser.id === user.id ? 'open-form' : ''
+              }`}
             >
-              <h3>Customer: {user.name}</h3>
+              <h3> {user.name} </h3>
               <p>Email: {user.email}</p>
               <p>Role: {user.role}</p>
               {selectedUser && selectedUser.id === user.id ? (
@@ -150,7 +152,21 @@ function Page() {
                       />
                     </label>
                     <br />
-                    <button type="submit">Submit</button>
+                    <button
+                      style={{
+                        'background-color': '#53b3cb',
+                        color: '#fff',
+                        border: 'none',
+                        'border-radius': '4px',
+                        padding: '8px 16px',
+                        cursor: 'pointer',
+                        transition: 'background-color 0.3s ease',
+                        width: '100%',
+                      }}
+                      type="submit"
+                    >
+                      Submit
+                    </button>
                   </form>
                 </div>
               ) : (
@@ -177,8 +193,6 @@ function Page() {
       )}
     </div>
   );
-};
-  
-
+}
 
 export default Page;
