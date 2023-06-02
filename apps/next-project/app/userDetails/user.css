@@ -20,17 +20,16 @@
   margin-bottom: 20px;
   padding: 20px;
   border-radius: 8px;
-  background-color: #fae4b4;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
  transition: transform 0.3s ease-in-out;
 }
   /* Random funky background colors */
   .user-card:nth-child(4n+1) {
-    background-color: #c9c8df;
+    background-color: #a3bee6;
   }
   
   .user-card:nth-child(4n+2) {
-    background-color: #ffaf5f;
+    background-color: #e7a2a2;
   }
   
   .user-card:nth-child(4n+3) {
@@ -40,6 +39,32 @@
   .user-card:nth-child(4n+4) {
     background-color: #7bff5f;
   }
+  
+  .user-card:nth-child(4n+5) {
+    background-color: #c5bff8;
+  }
+  
+  .user-card:nth-child(4n+6) {
+    background-color: #f6d789;
+  }
+  
+  .user-card:nth-child(4n+7) {
+    background-color: #87e9b9;
+  }
+  
+  .user-card:nth-child(4n+8) {
+    background-color: #f694c1;
+  }
+  
+  .user-card:nth-child(4n+9) {
+    background-color: #9cddff;
+  }
+  
+  .user-card:nth-child(4n+10) {
+    background-color: #f0b3e1;
+  }
+  
+
 
 .user-card:hover {
   transform: scale(1.05);

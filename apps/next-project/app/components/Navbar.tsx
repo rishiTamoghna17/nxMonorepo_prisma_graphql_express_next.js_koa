@@ -1,9 +1,9 @@
-"use client"
+'use client';
 import Link from 'next/link';
-import "./navbar.css"
+import './navbar.css';
 import React from 'react';
 // import SigningButton from './SigningButton';
-import{useRouter} from 'next/navigation'
+import { useRouter } from 'next/navigation';
 import { signOut, useSession } from 'next-auth/react';
 
 function Navbar() {
@@ -11,8 +11,8 @@ function Navbar() {
   const { data: session } = useSession();
   const userDetail = session?.user;
   const handleLogout = () => {
-    signOut({ redirect: false, }).then(()=> router.push("/login"))
-  }
+    signOut({ redirect: false }).then(() => router.push('/login'));
+  };
   return (
     <nav>
       <Link href="/">Home</Link>
@@ -21,9 +21,20 @@ function Navbar() {
       <Link href="/formdata">form data</Link>
       <Link href="/userDetails">User Details</Link>
       <Link href="/signUp">register</Link>
-      <Link href="/login">login</Link>
-      <p className='logout' onClick={handleLogout}>logout</p>
-      <p className='login-card'> {userDetail?`${userDetail?.name}`:"please Signin"}</p>
+      <div className="login-card">
+        <Link href="/login">
+          {userDetail
+            ? `${userDetail?.name} is Active `
+            : 'you are not active  (⌣́_⌣̀) (⌣́_⌣̀) '}
+        </Link>
+        <p
+          className={userDetail ? 'logout' : 'logout-hide'}
+          onClick={handleLogout}
+        >
+          clch here to logout
+        </p>
+      </div>
+      {/* <p className='login-card'> {userDetail?`${userDetail?.name}`:"please Signin"}</p> */}
     </nav>
   );
 }

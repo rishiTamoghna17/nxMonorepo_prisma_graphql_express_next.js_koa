@@ -18,7 +18,7 @@ function Page() {
   const { data: session } = useSession();
   const userDetail = session?.user;
   const token = userDetail?.access_token;
-
+  
   useEffect(() => {
     setHydrated(true);
     if (!token) return router.push('/login');
@@ -47,6 +47,35 @@ function Page() {
       role: selectedUser.role,
     });
   };
+  
+    const handleInputChange = (e) => {
+      setUpdateForm({ ...updateForm, [e.target.name]: e.target.value });
+    };
+  
+    const handleSubmit = (e) => {
+      e.preventDefault();
+      fetch(`http://localhost:3000/user/update/${selectedUser.id}`, {
+        method: 'PUT',
+        cache: 'no-cache',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(updateForm),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          // Update the user details after successful update
+          const updatedUser = user.map((u) => (u.id === data.id ? data : u));
+          setUser(updatedUser);
+          setSelectedUser(null); // Reset selected user
+          alert('updated user');
+        })
+        .catch((err) => {
+          throw new Error(err.message);
+        });
+    };
 
   const handleDelete = (id) => {
     fetch(`http://localhost:3000/user/delete/${id}`, {
@@ -59,40 +88,11 @@ function Page() {
       },
     })
       .then((res) => res.json())
-      .then((data) => {
+      .then(() => {
         // Remove the deleted user from the user list
         const updatedUser = user.filter((u) => u.id !== id);
         setUser(updatedUser);
         alert('deleted user');
-      })
-      .catch((err) => {
-        throw new Error(err.message);
-      });
-  };
-
-  const handleInputChange = (e) => {
-    setUpdateForm({ ...updateForm, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    fetch(`http://localhost:3000/user/update/${selectedUser.id}`, {
-      method: 'PUT',
-      cache: 'no-cache',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(updateForm),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        // Update the user details after successful update
-        const updatedUser = user.map((u) => (u.id === data.id ? data : u));
-        setUser(updatedUser);
-        setSelectedUser(null); // Reset selected user
-        alert('updated user');
       })
       .catch((err) => {
         throw new Error(err.message);
@@ -139,7 +139,7 @@ function Page() {
                         name="email"
                         value={updateForm.email}
                         onChange={handleInputChange}
-                      />
+                      />    
                     </label>
                     <br />
                     <label>
