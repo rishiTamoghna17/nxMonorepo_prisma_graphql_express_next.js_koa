@@ -2,7 +2,7 @@
 import Koa from 'koa';
 const Router = require('koa-router');
 const bodyParser = require('koa-bodyparser');
-import { prisma } from '@xyz/mylib';
+import { prisma } from '@xyz/mylib/prisma';
 import bcrypt from 'bcrypt';
 const jwt = require('jsonwebtoken');
 const json = require('koa-json');
@@ -116,7 +116,7 @@ router.get('/user/:id', async (ctx) => {
   }
 });
 
-router.put('/user/update/:id', async (ctx) => {
+router.put('/user/update/:id',passport.authenticate('jwt', { session: false }), async (ctx) => {
   const id = ctx.params.id;
   const { email, name, password, role } = ctx.request.body;
   const data = ctx.request.body;
@@ -136,7 +136,7 @@ router.put('/user/update/:id', async (ctx) => {
   }
 });
 
-router.delete('/user/delete/:id', async (ctx) => {
+router.delete('/user/delete/:id',passport.authenticate('jwt', { session: false }), async (ctx) => {
   const id = ctx.params.id;
   try {
     const user = await prisma.user.delete({

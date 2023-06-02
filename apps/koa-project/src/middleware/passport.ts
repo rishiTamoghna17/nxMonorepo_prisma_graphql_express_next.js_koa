@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const JwtStrategy = require('passport-jwt').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
-import { prisma } from '@xyz/mylib';
+import { prisma } from '@xyz/mylib/prisma';
 
 const initializingPassport = (passport: any) => {
     const opts = {
