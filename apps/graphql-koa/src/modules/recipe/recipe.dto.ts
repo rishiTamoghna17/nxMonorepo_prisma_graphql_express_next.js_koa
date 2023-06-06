@@ -1,19 +1,23 @@
-import { Field, ID, ObjectType } from "type-graphql";
+import { Field, ID, ObjectType } from 'type-graphql';
+import { Users } from '../user/user.dto';
 
 @ObjectType()
-export class User{
-    @Field(()=>ID,{nullable:false})
-    id: number;
+export class Products {
+  @Field(() => ID)
+  id: number;
 
-    @Field(()=>String,{nullable:false})
-    title: string;
+  @Field(() => String)
+  title: string;
 
-    @Field(()=>String,{nullable:false})
-    description: string;
+  @Field(() => String)
+  description: string;
 
-    @Field(()=>String,{nullable:false})
-    thumbsUp: string;
+  @Field(() => String)
+  price: string;
 
-    @Field(()=>String,{nullable:false})
-    thumbsDown: [string];
+  @Field(() => [Users])
+  user: Users[];
+
+  @Field(() => Boolean)
+  thumbsUp: boolean;
 }

@@ -15,6 +15,14 @@ class UserService {
   }
   //****************create user*************//
   async createuser(input: CreateUserInput) {
+    const existingUser = await this.prisma.user.findUnique({
+        where: {
+          email: input.email,
+        },
+      });
+      if (existingUser) {
+        throw new ApolloError(' email exist');
+      }
     return await this.prisma.user.create({ data: input });
   }
 
