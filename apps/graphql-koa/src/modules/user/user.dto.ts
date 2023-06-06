@@ -1,7 +1,7 @@
-import { Field, ID, InputType, Int, ObjectType } from "type-graphql";
+import { ArgsType, Field, ID, InputType, Int, ObjectType } from "type-graphql";
 
 @ObjectType()
-export class User{
+export class Users{
     @Field(()=>ID,{nullable:false})
     id!: number;
 
@@ -16,6 +16,7 @@ export class User{
 }
 
 @InputType()
+@ArgsType()
 export class CreateUserInput {
 
     @Field(()=>String,{nullable:false})
@@ -23,6 +24,16 @@ export class CreateUserInput {
 
     @Field(()=>String,{nullable:false})
     email!: string;
+
+    @Field(()=>String,{nullable:false})
+    password: string;
+}
+
+@InputType()
+@ArgsType()
+export class LoginInput{
+    @Field(()=>String,{nullable:false})
+    email: string;
 
     @Field(()=>String,{nullable:false})
     password: string;
