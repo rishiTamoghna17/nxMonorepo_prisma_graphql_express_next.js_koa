@@ -1,4 +1,4 @@
-import { Field, ID, ObjectType } from 'type-graphql';
+import { ArgsType, Field, ID, InputType, ObjectType } from 'type-graphql';
 import { Users } from '../user/user.dto';
 
 @ObjectType()
@@ -20,4 +20,17 @@ export class Products {
 
   @Field(() => Boolean)
   thumbsUp: boolean;
+}
+
+@InputType()
+@ArgsType()
+export class CreateProductInput {
+  @Field(() => String)
+  title: string;
+
+  @Field(() => String)
+  description: string;
+
+  @Field(() => String)
+  price: string;
 }
