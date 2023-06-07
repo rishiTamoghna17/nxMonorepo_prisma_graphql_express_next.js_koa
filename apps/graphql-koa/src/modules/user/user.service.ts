@@ -1,22 +1,17 @@
-import  {prisma}  from '@xyz/prisma';
-
-// import { PrismaClient } from '@prisma/client';
+// import { prisma } from '@xyz/mylib/prisma';
+import { PrismaClient } from '@prisma/client';
 import { CreateUserInput, LoginInput } from './user.dto';
 import { ApolloError } from 'apollo-server-koa';
 import bcrypt from 'bcrypt';
+import { prisma } from '@xyz/mylib/prisma';
 import jwt from 'jsonwebtoken';
 import Context from '../../type/context';
 
 // import { prisma } from '@xyz/mylib/prisma';
 class UserService {
 
-    
-  // constructor(private prisma: PrismaClient) {
-  //   this.prisma = new PrismaClient();
-  // }
   //****************create user*************//
   async createuser(input: CreateUserInput) {
-    console.log(prisma)
     const existingUser = await prisma.user.findUnique({
         where: {
           email: input.email,
@@ -48,14 +43,10 @@ class UserService {
       throw new ApolloError('invalid email or password');
     }
 
-    const token = jwt.sign({ userId: existingUser.id,email:existingUser.email }, 'very-secret');
-    // context.ctx.cookies.set('accessToken', token);
-    context.ctx.set('accessToken', token);
+    const token = jwt.sign({ userId: existingUser.id }, 'very-secret');
+    context.ctx.cookies.set('accessToken', token);
 
-
-    console.log(context.ctx.response.headers.authorization);
-    // console.log(context.ctx.cookies.get("Authorization"));
-
+    console.log(context.ctx.cookies.get('accessToken'));
     return token;
   }
 }

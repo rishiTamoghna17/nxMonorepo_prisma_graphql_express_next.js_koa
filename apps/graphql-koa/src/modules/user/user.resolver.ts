@@ -6,7 +6,7 @@ import Context from '../../type/context';
 
 @Resolver()
 class UserResolver {
-  constructor( private userService: UserService) {
+  constructor(private userService: UserService) {
     this.userService = new UserService();
   }
 
@@ -29,7 +29,7 @@ class UserResolver {
 
   @Query(() => Users)
   user(@Ctx() context:Context) {
-    // console.log(context.user)
+    console.log(context.user)
     return context.user
   }
 }
