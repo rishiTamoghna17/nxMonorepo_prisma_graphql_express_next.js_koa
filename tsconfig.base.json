@@ -15,8 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@xyz/my-new-lib/server": ["libs/my-new-lib/src/server.ts"],
-      "@xyz/mylib/prisma": ["mylib/prisma/src/index.ts"]
+      "@xyz/prisma": ["mylib/prisma/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

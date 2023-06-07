@@ -2,7 +2,7 @@
 import Koa from 'koa';
 const Router = require('koa-router');
 const bodyParser = require('koa-bodyparser');
-import { prisma } from '@xyz/mylib/prisma';
+import { prisma } from '@xyz/prisma';
 import bcrypt from 'bcrypt';
 const jwt = require('jsonwebtoken');
 const json = require('koa-json');

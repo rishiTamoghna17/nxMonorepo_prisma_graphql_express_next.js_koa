@@ -1,15 +1,13 @@
 import { Args, Ctx, Mutation, Query, Resolver } from 'type-graphql';
 import { CreateUserInput, Users, LoginInput } from './user.dto';
-import { PrismaClient } from '@prisma/client';
 import UserService from './user.service';
 import bcrypt from 'bcrypt';
 import Context from '../../type/context';
 
 @Resolver()
 class UserResolver {
-  constructor(private prisma: PrismaClient, private userService: UserService) {
-    this.prisma = new PrismaClient();
-    this.userService = new UserService(this.prisma);
+  constructor( private userService: UserService) {
+    this.userService = new UserService();
   }
 
   @Mutation(() => Users)
@@ -31,7 +29,7 @@ class UserResolver {
 
   @Query(() => Users)
   user(@Ctx() context:Context) {
-    console.log(context.user)
+    // console.log(context.user)
     return context.user
   }
 }
