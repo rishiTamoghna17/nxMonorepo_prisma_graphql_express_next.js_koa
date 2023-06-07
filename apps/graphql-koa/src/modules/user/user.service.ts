@@ -44,9 +44,9 @@ class UserService {
     }
 
     const token = jwt.sign({ userId: existingUser.id }, 'very-secret');
-    context.ctx.cookies.set('accessToken', token);
+    context.ctx.set('Authorization', token);
 
-    console.log(context.ctx.cookies.get('accessToken'));
+    console.log(context.ctx);
     return token;
   }
 }

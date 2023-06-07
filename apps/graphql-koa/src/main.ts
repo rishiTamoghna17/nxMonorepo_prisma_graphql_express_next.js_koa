@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 
 import 'reflect-metadata';
 import { ApolloServer } from 'apollo-server-koa';
@@ -8,22 +9,44 @@ import { prisma } from "@xyz/mylib/prisma";
 import { veryfyjwt } from "./utils/jwt";
 import { Users } from "./modules/user/user.dto";
 import Context from "./type/context";
+const passport = require('koa-passport')
+const JwtStrategy = require('passport-jwt').Strategy;
+const ExtractJwt = require('passport-jwt').ExtractJwt;
+
 
 (async () => {
-    const app = new Koa();
+   //initializingPassport//
+   const opts = {
+    jwtFromRequest : ExtractJwt.fromAuthHeaderAsBearerToken(),
+   secretOrKey : "very_import_token"
+    }
 
+    passport.use(new JwtStrategy(opts, function(jwt_payload,next) {
+        const email = jwt_payload.email;
+        prisma.user.findUnique({
+            where: {
+              email: email,
+            },
+          }).then((user: any) => {  // Adjusted the type of the resolved value to `any` or the appropriate type
+            if (user) {
+              return next(null, user);
+            } else {
+              return next(null, false);
+              // or you could create a new account
+            }
+          }).catch((err: any) => {
+            return next(err, false);
+          });
+        }));
+
+
+    const app = new Koa();
+    app.use(passport.initialize());
     const apolloServer = new ApolloServer({
         schema: await buildSchema({
             resolvers: [UserResolver]
         }),
-        context: ( ctx:Context ) => {
-            const context = ctx
-            if(ctx.ctx.cookies.accessToken){
-                const user = veryfyjwt<Users>(ctx.ctx.cookies.accessToken)
-                context.user = user
-            }
-            return context;
-        }, 
+        context: (({ctx})=>ctx)
     });
     await apolloServer.start();
     apolloServer.applyMiddleware({ app });

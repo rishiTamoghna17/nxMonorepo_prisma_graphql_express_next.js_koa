@@ -8,7 +8,6 @@ const jwt = require('jsonwebtoken');
 const json = require('koa-json');
 import cors from '@koa/cors';
 const passport = require('koa-passport')
-const tough = require("tough-cookie");
 const authenticateMiddleware = require('./middleware/authMiddleware')
 const initializingPassport = require('./middleware/passport')
 initializingPassport(passport)
