@@ -1,7 +1,8 @@
 .container {
-  max-width: 800px;
+  width: 100%;
+  /* max-width: 1500px; */
   margin: 0 auto;
-  padding: 20px;
+  /* padding: 20px; */
 }
 
 .title {
@@ -24,43 +25,43 @@
  transition: transform 0.3s ease-in-out;
 }
   /* Random funky background colors */
-  .user-card:nth-child(4n+1) {
+  .user-card:nth-child(10n+1) {
     background-color: #a3bee6;
   }
   
-  .user-card:nth-child(4n+2) {
+  .user-card:nth-child(10n+2) {
     background-color: #e7a2a2;
   }
   
-  .user-card:nth-child(4n+3) {
+  .user-card:nth-child(10n+3) {
     background-color: #ffd15f;
   }
   
-  .user-card:nth-child(4n+4) {
+  .user-card:nth-child(10n+4) {
     background-color: #7bff5f;
   }
   
-  .user-card:nth-child(4n+5) {
+  .user-card:nth-child(10n+5) {
     background-color: #c5bff8;
   }
   
-  .user-card:nth-child(4n+6) {
+  .user-card:nth-child(10n+6) {
     background-color: #f6d789;
   }
   
-  .user-card:nth-child(4n+7) {
+  .user-card:nth-child(10n+7) {
     background-color: #87e9b9;
   }
   
-  .user-card:nth-child(4n+8) {
+  .user-card:nth-child(10n+8) {
     background-color: #f694c1;
   }
   
-  .user-card:nth-child(4n+9) {
+  .user-card:nth-child(10n+9) {
     background-color: #9cddff;
   }
   
-  .user-card:nth-child(4n+10) {
+  .user-card:nth-child(10n+10) {
     background-color: #f0b3e1;
   }
   
@@ -176,7 +177,9 @@
   .user-card {
     padding: 12px;
   }
-
+  .user-info {
+    justify-content: center;
+  }
   .update-button,
   .delete-button {
     font-size: 12px;

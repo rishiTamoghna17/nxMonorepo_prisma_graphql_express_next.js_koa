@@ -10,7 +10,6 @@ import { SubscriptionServer } from "subscriptions-transport-ws";
 import { execute, subscribe } from "graphql";
 
 const main = async () => {
-  const prisma = new PrismaClient();
   const app = express();
 
   const apolloServer = new ApolloServer({
@@ -18,7 +17,7 @@ const main = async () => {
       resolvers: [TaskResolver],
       validate: false,
     }),
-    context: () => ({ prisma }),
+    context: ({ req }) => ({ req }),
     plugins: [ApolloServerPluginLandingPageGraphQLPlayground()],
   });
 

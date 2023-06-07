@@ -1,4 +1,4 @@
-import { PrismaClient, Task } from "@prisma/client";
+import { prisma } from "@xyz/mylib/prisma";
 import {
   ObjectType,
   Field,
@@ -35,22 +35,20 @@ class TaskType {
 
 @Resolver()
 export class TaskResolver {
-  private prisma: PrismaClient;
   private pubsub: PubSub;
   constructor() {
-    this.prisma = new PrismaClient();
     this.pubsub = new PubSub();
   }
 
   @Query(() => [TaskType])
-  async tasks(): Promise<Task[]> {
+  async tasks() {
     const cachedTasks = await redis.get("tasks");
     if (cachedTasks) {
       //   If tasks exist in the cache, return them directly
       return JSON.parse(cachedTasks);
     } else {
       //  If tasks don't exist in the cache, fetch them from the database
-      const tasks = await this.prisma.task.findMany();
+      const tasks = await prisma.task.findMany();
 
       // Store the tasks in the cache for future use
       await redis.set("tasks", JSON.stringify(tasks));
@@ -62,8 +60,8 @@ export class TaskResolver {
   @Mutation(() => TaskType)
   async createTask(
     @Arg("title", { nullable: true }) title?: string
-  ): Promise<Task> {
-    const task = await this.prisma.task.create({ data: { title } });
+  ){
+    const task = await prisma.task.create({ data: { title } });
     //publish the create task to the subscription
     await this.pubsub.publish("TASK_CREATED", task);
     // Invalidate the "tasks" cache since a new task was created
@@ -76,8 +74,8 @@ export class TaskResolver {
     @Arg("id", () => Int) id: number,
     @Arg("title", { nullable: true }) title?: string,
     @Arg("isComplete", { nullable: true }) isComplete?: boolean
-  ): Promise<Task | null> {
-    const updatedTask = await this.prisma.task.update({
+  ){
+    const updatedTask = await prisma.task.update({
       where: { id },
       data: { title, isComplete },
     });
@@ -90,7 +88,7 @@ export class TaskResolver {
 
   @Mutation(() => Boolean)
   async deleteTask(@Arg("id", () => Int) id: number): Promise<boolean> {
-    await this.prisma.task.delete({ where: { id } });
+    await prisma.task.delete({ where: { id } });
     // Publish the ID of the deleted task to the subscription channel
     await this.pubsub.publish("TASK_DELETED", id);
     await redis.del("tasks");
@@ -101,21 +99,21 @@ export class TaskResolver {
   @Subscription(() => TaskType, {
     topics: "TASK_CREATED",
   })
-  taskCreated(@Root() task: Task): Task {
+  taskCreated(@Root() task )  {
     return task;
   }
 
   @Subscription(() => TaskType, {
     topics: "TASK_UPDATED",
   })
-  taskUpdated(): AsyncIterator<Task> {
+  taskUpdated() {
     return this.pubsub.asyncIterator("TASK_UPDATED");
   }
 
   @Subscription(() => Int, {
     topics: "TASK_DELETED",
   })
-  taskDeleted(): AsyncIterator<number> {
+  taskDeleted(){
     return this.pubsub.asyncIterator("TASK_DELETED");
   }
 }

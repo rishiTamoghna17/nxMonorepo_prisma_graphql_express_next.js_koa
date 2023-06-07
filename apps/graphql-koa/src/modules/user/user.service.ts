@@ -44,7 +44,7 @@ class UserService {
     }
 
     const token = jwt.sign({ userId: existingUser.id }, 'very-secret');
-    context.ctx.set('Authorization', token);
+    // context.ctx.set('Authorization', token);
 
     console.log(context.ctx);
     return token;

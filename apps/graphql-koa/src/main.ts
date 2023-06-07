@@ -6,7 +6,7 @@ import { buildSchema } from 'type-graphql';
 import UserResolver from "./modules/user/user.resolver"
 import Koa from 'koa';
 import { prisma } from "@xyz/mylib/prisma";
-import { veryfyjwt } from "./utils/jwt";
+import { authcheck } from "./utils/authcheck";
 import { Users } from "./modules/user/user.dto";
 import Context from "./type/context";
 const passport = require('koa-passport')
@@ -18,7 +18,7 @@ const ExtractJwt = require('passport-jwt').ExtractJwt;
    //initializingPassport//
    const opts = {
     jwtFromRequest : ExtractJwt.fromAuthHeaderAsBearerToken(),
-   secretOrKey : "very_import_token"
+   secretOrKey : "very-secret"
     }
 
     passport.use(new JwtStrategy(opts, function(jwt_payload,next) {
@@ -44,7 +44,8 @@ const ExtractJwt = require('passport-jwt').ExtractJwt;
     app.use(passport.initialize());
     const apolloServer = new ApolloServer({
         schema: await buildSchema({
-            resolvers: [UserResolver]
+            resolvers: [UserResolver],
+            authChecker: authcheck,
         }),
         context: (({ctx})=>ctx)
     });

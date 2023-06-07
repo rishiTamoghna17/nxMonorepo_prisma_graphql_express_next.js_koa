@@ -1,4 +1,4 @@
-import { Args, Ctx, Mutation, Query, Resolver } from 'type-graphql';
+import { Args, Authorized, Ctx, Mutation, Query, Resolver } from 'type-graphql';
 import { CreateUserInput, Users, LoginInput } from './user.dto';
 import UserService from './user.service';
 import bcrypt from 'bcrypt';
@@ -28,9 +28,10 @@ class UserResolver {
   }
 
   @Query(() => Users)
-  user(@Ctx() context:Context) {
-    console.log(context.user)
-    return context.user
+  @Authorized() // Add the @Authorized decorator
+  user(@Ctx() context: Context) {
+    console.log(context.user);
+    return context.user;
   }
 }
 
