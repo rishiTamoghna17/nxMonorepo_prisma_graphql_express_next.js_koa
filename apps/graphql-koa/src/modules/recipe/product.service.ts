@@ -18,7 +18,7 @@ class ProductService{
         return prisma.product.create({
           data: {
             ...input,
-            user: user ? { connect: { id:user } } : undefined,
+            user: user ? { connect: { id:(user) } } : undefined,
           }as Prisma.ProductCreateInput,
         });
       }
@@ -29,11 +29,12 @@ class ProductService{
     }
 
     async getProductById(title:GetProductInputById){
-        return await prisma.product.findUnique({
+        const user=  await prisma.product.findUnique({
             where:{
-                    id:title.id,
+                    id:Number(title.id),
                 }
         })
+        return user
     }
 }
 export default ProductService

@@ -15,7 +15,7 @@ class ProductResolver{
         @Args(() => CreateProductInput) input: CreateProductInput,
         @Ctx() context: Context
       ) {
-        return this.produceService.createProduct(input, input.userId ?? context.user?.id);
+        return this.produceService.createProduct(input, Number(input.userId) ?? context.user?.id);
       }
 
       //*********** Get all product ************//
@@ -27,7 +27,7 @@ class ProductResolver{
 
             //*********** Get all product ************//
     @Authorized()
-      @Query(()=>[Products])
+      @Query(()=>Products)
       getProductById(@Args(()=>GetProductInputById)input:GetProductInputById){
         return this.produceService.getProductById(input)
       }

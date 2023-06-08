@@ -29,7 +29,7 @@ export class CreateProductInput {
   title!: string;
 
   @Field(() => ID, { nullable: true })
-  userId?: number;
+  userId?: string;
 
   @Field(() => String)
   description: string;
@@ -45,5 +45,5 @@ export class CreateProductInput {
 @ArgsType()
 export class GetProductInputById {
   @Field(() => ID)
-  id: number;
+  id: string;
 }
