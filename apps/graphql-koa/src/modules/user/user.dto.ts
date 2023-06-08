@@ -1,4 +1,5 @@
 import { ArgsType, Field, ID, InputType, Int, ObjectType } from "type-graphql";
+import { Products } from '../recipe/product.dto'
 
 @ObjectType()
 export class Users{
@@ -13,6 +14,9 @@ export class Users{
 
     @Field(()=>String,{nullable:false})
     password!: string;
+
+    @Field(() => [Products], { nullable: true })
+    products?: Products[];
 }
 
 @InputType()

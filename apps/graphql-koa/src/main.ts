@@ -28,7 +28,9 @@ const ExtractJwt = require('passport-jwt').ExtractJwt;
         prisma.user.findUnique({
             where: {
               email: email,
-            },
+            },include: {
+              products:true
+            }
           }).then((user: any) => {
             //  console.log(user)  // Adjusted the type of the resolved value to `any` or the appropriate type
             if (user) {
