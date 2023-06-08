@@ -18,7 +18,7 @@ class ProductService{
         return prisma.product.create({
           data: {
             ...input,
-            user: user ? { connect: { id: Number(user) } } : undefined,
+            user: user ? { connect: { id:user } } : undefined,
           }as Prisma.ProductCreateInput,
         });
       }
