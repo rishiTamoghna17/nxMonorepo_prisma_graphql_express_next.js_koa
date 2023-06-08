@@ -9,6 +9,7 @@ import { prisma } from "@xyz/mylib/prisma";
 import { authcheck } from "./utils/authcheck";
 import { Users } from "./modules/user/user.dto";
 import Context from "./type/context";
+import ProductResolver from './modules/recipe/product.resolver';
 const passport = require('koa-passport')
 const JwtStrategy = require('passport-jwt').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
@@ -53,7 +54,7 @@ const ExtractJwt = require('passport-jwt').ExtractJwt;
 
     const apolloServer = new ApolloServer({
         schema: await buildSchema({
-            resolvers: [UserResolver],
+            resolvers: [UserResolver,ProductResolver],
             authChecker:authcheck
           //   authChecker: ({ context }) => {
           //     return !!context.user; // Return true if user exists, otherwise false

@@ -15,8 +15,8 @@ export class Products {
   @Field(() => String)
   price: string;
 
-  @Field(() => [Users])
-  user: Users[];
+  @Field(() => [Users],{ nullable: true })
+  user: Users[]| null;
 
   @Field(() => Boolean)
   thumbsUp: boolean;
@@ -26,11 +26,24 @@ export class Products {
 @ArgsType()
 export class CreateProductInput {
   @Field(() => String)
-  title: string;
+  title!: string;
+
+  @Field(() => ID, { nullable: true })
+  userId?: number;
 
   @Field(() => String)
   description: string;
 
   @Field(() => String)
   price: string;
+
+  @Field(() => Boolean)
+  thumbsUp: boolean;
+}
+
+@InputType()
+@ArgsType()
+export class GetProductInputById {
+  @Field(() => ID)
+  id: number;
 }

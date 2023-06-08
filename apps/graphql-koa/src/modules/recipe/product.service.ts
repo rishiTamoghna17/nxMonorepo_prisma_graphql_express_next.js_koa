@@ -1,0 +1,39 @@
+import { Prisma, prisma } from "@xyz/mylib/prisma";
+import { CreateProductInput, GetProductInputById } from "./product.dto";
+import { ApolloError } from "apollo-server-koa";
+import { Users } from "../user/user.dto";
+
+class ProductService{
+    async createProduct(input: CreateProductInput, user: Users["id"]) {
+        const existingProduct = await prisma.product.findUnique({
+          where: {
+            title: input.title,
+          },
+        });
+    
+        if (existingProduct) {
+          throw new ApolloError('Product already exists');
+        }
+    
+        return prisma.product.create({
+          data: {
+            ...input,
+            user: user ? { connect: { id: Number(user) } } : undefined,
+          }as Prisma.ProductCreateInput,
+        });
+      }
+
+    async getAllProducts(){
+        //pagination add
+        return await prisma.product.findMany();
+    }
+
+    async getProductById(title:GetProductInputById){
+        return await prisma.product.findUnique({
+            where:{
+                    id:title.id,
+                }
+        })
+    }
+}
+export default ProductService

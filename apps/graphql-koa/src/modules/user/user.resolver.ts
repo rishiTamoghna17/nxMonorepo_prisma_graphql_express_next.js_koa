@@ -27,8 +27,8 @@ class UserResolver {
     );
   }
 
-  @Query(() => Users)
-  @Authorized() // Add the @Authorized decorator
+  @Query(() => Users,{nullable:true})
+  // @Authorized() // Add the @Authorized decorator
   user(@Ctx() context: Context) {
     // console.log(context.user);
     return context.user;
