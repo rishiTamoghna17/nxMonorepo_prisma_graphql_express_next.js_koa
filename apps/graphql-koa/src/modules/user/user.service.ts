@@ -43,10 +43,9 @@ class UserService {
       throw new ApolloError('invalid email or password');
     }
 
-    const token = jwt.sign({ userId: existingUser.id }, 'very-secret');
-    // context.ctx.set('Authorization', token);
+    const token = jwt.sign({ userId: existingUser.id,email:existingUser.email }, 'very-secret');
 
-    console.log(context.ctx);
+
     return token;
   }
 }

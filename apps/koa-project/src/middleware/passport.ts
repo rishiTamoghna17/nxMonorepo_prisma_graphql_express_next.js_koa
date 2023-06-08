@@ -11,6 +11,7 @@ const initializingPassport = (passport: any) => {
 
     passport.use(new JwtStrategy(opts, function(jwt_payload,next) {
         const email = jwt_payload.email;
+        console.log(email);
         prisma.user.findUnique({
             where: {
               email: email,

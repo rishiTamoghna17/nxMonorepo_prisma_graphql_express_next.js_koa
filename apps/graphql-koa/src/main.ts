@@ -23,11 +23,13 @@ const ExtractJwt = require('passport-jwt').ExtractJwt;
 
     passport.use(new JwtStrategy(opts, function(jwt_payload,next) {
         const email = jwt_payload.email;
+        // console.log(jwt_payload);
         prisma.user.findUnique({
             where: {
               email: email,
             },
-          }).then((user: any) => {  // Adjusted the type of the resolved value to `any` or the appropriate type
+          }).then((user: any) => {
+            //  console.log(user)  // Adjusted the type of the resolved value to `any` or the appropriate type
             if (user) {
               return next(null, user);
             } else {
@@ -39,15 +41,25 @@ const ExtractJwt = require('passport-jwt').ExtractJwt;
           });
         }));
 
-
     const app = new Koa();
     app.use(passport.initialize());
+
+    app.use(async (ctx, next) => {
+      return passport.authenticate('jwt', { session: false }, (err, user) => {
+         ctx.user = user;
+         return next();
+      })(ctx, next);
+   });
+
     const apolloServer = new ApolloServer({
         schema: await buildSchema({
             resolvers: [UserResolver],
-            authChecker: authcheck,
+            authChecker:authcheck
+          //   authChecker: ({ context }) => {
+          //     return !!context.user; // Return true if user exists, otherwise false
+          //  },
         }),
-        context: (({ctx})=>ctx)
+        context: ({ ctx }: { ctx: Context }) => ctx,
     });
     await apolloServer.start();
     apolloServer.applyMiddleware({ app });
