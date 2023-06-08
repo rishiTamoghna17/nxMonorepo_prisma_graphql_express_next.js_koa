@@ -10,6 +10,7 @@ class UserResolver {
     this.userService = new UserService();
   }
 
+ //************* signup  *************//
   @Mutation(() => Users)
   async createUser(@Args(() => CreateUserInput) input: CreateUserInput) {
     // return this.prisma.user.create({ data: input });
@@ -19,6 +20,7 @@ class UserResolver {
     });
   }
 
+  //************* login  *************//
   @Mutation(() => String)
   async login(@Args(() => LoginInput) input: LoginInput,@Ctx() context:Context) {
     // return this.prisma.user.create({ data: input });
@@ -27,12 +29,22 @@ class UserResolver {
     );
   }
 
+  //************* login user *************//
   @Query(() => Users,{nullable:true})
-  // @Authorized() // Add the @Authorized decorator
+  @Authorized() // Add the @Authorized decorator
   user(@Ctx() context: Context) {
     // console.log(context.user);
     return context.user;
   }
+
+  //************* all users *************//
+  @Query(() => [Users],{nullable:true})
+  @Authorized() // Add the @Authorized decorator
+  allUsers() {
+    // console.log(context.user);
+    return this.userService.allUsers()
+  }
+
 }
 
 export default UserResolver;

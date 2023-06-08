@@ -24,7 +24,6 @@ class UserService {
   }
 
   //****************login user*************//
-
   async login(input: LoginInput, context: Context) {
     const existingUser = await prisma.user.findUnique({
       where: {
@@ -44,9 +43,16 @@ class UserService {
     }
 
     const token = jwt.sign({ userId: existingUser.id,email:existingUser.email }, 'very-secret');
-
-
     return token;
+  }
+
+  //************* all users *************//
+  async allUsers(){
+    return await prisma.user.findMany({
+      include: {
+        products: true,
+      },
+    });
   }
 }
 export default UserService;
