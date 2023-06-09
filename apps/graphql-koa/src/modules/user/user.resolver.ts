@@ -32,7 +32,7 @@ class UserResolver {
   //************* login user *************//
   @Query(() => Users,{nullable:true})
   @Authorized() // Add the @Authorized decorator
-  user(@Ctx() context: Context) {
+  loginUser(@Ctx() context: Context) {
     // console.log(context.user);
     return context.user;
   }
