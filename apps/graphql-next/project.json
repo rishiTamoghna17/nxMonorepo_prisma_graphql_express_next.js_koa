@@ -24,12 +24,14 @@
       "defaultConfiguration": "development",
       "options": {
         "buildTarget": "graphql-next:build",
-        "dev": true
+        "dev": true,
+        "port": 4000
       },
       "configurations": {
         "development": {
           "buildTarget": "graphql-next:build:development",
-          "dev": true
+          "dev": true,
+          "port": 4000
         },
         "production": {
           "buildTarget": "graphql-next:build:production",
