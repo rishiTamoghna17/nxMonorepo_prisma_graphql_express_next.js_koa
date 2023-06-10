@@ -42,3 +42,12 @@ export class LoginInput{
     @Field(()=>String,{nullable:false})
     password: string;
 }
+
+@InputType()
+@ArgsType()
+export class GetUserById{
+    @Field(()=>ID,{nullable:false})
+    id: string;
+
+    
+}

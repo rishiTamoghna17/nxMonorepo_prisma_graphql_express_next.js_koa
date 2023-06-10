@@ -13,8 +13,10 @@ export const createProductSubscription = {
     () => pubsub.asyncIterator(SUBSCRIPTION_EVENTS.PRODUCT_CREATED),
     (payload, variables) => {
       // Add your filtering logic here if needed
-      return true;
+      console.log(payload);
+      return (payload && payload !== null);
     }
+
   ),
 };
 

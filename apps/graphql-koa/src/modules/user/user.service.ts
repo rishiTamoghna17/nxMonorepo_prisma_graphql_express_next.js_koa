@@ -1,6 +1,6 @@
 // import { prisma } from '@xyz/mylib/prisma';
 import { PrismaClient } from '@prisma/client';
-import { CreateUserInput, LoginInput } from './user.dto';
+import { CreateUserInput, GetUserById, LoginInput } from './user.dto';
 import { ApolloError } from 'apollo-server-koa';
 import bcrypt from 'bcrypt';
 import { prisma } from '@xyz/mylib/prisma';
@@ -23,8 +23,8 @@ class UserService {
     return await prisma.user.create({ data: input });
   }
 
-  //****************login user*************//
-  async login(input: LoginInput, context: Context) {
+  //****************login *************//
+  async login(input: LoginInput) {
     const existingUser = await prisma.user.findUnique({
       where: {
         email: input.email,
@@ -53,6 +53,18 @@ class UserService {
         products: true,
       },
     });
+  }
+
+   //*************  user by id *************//
+  async getUserById(input:GetUserById){
+    return await prisma.user.findUnique(
+      {
+        where: {
+          id:Number(input.id),
+        }
+      }
+      
+    );
   }
 }
 export default UserService;

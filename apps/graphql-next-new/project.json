@@ -1,7 +1,7 @@
 {
-  "name": "graphql-next",
+  "name": "graphql-next-new",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "apps/graphql-next",
+  "sourceRoot": "apps/graphql-next-new",
   "projectType": "application",
   "targets": {
     "build": {
@@ -9,12 +9,12 @@
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
-        "root": "apps/graphql-next",
-        "outputPath": "dist/apps/graphql-next"
+        "root": "apps/graphql-next-new",
+        "outputPath": "dist/apps/graphql-next-new"
       },
       "configurations": {
         "development": {
-          "outputPath": "apps/graphql-next"
+          "outputPath": "apps/graphql-next-new"
         },
         "production": {}
       }
@@ -23,18 +23,18 @@
       "executor": "@nx/next:server",
       "defaultConfiguration": "development",
       "options": {
-        "buildTarget": "graphql-next:build",
+        "buildTarget": "graphql-next-new:build",
         "dev": true,
-        "port": 4000
+        "port":4000
       },
       "configurations": {
         "development": {
-          "buildTarget": "graphql-next:build:development",
+          "buildTarget": "graphql-next-new:build:development",
           "dev": true,
-          "port": 4000
+          "port":4000
         },
         "production": {
-          "buildTarget": "graphql-next:build:production",
+          "buildTarget": "graphql-next-new:build:production",
           "dev": false
         }
       }
@@ -42,14 +42,14 @@
     "export": {
       "executor": "@nx/next:export",
       "options": {
-        "buildTarget": "graphql-next:build:production"
+        "buildTarget": "graphql-next-new:build:production"
       }
     },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "apps/graphql-next/jest.config.ts",
+        "jestConfig": "apps/graphql-next-new/jest.config.ts",
         "passWithNoTests": true
       },
       "configurations": {
@@ -63,7 +63,7 @@
       "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["apps/graphql-next/**/*.{ts,tsx,js,jsx}"]
+        "lintFilePatterns": ["apps/graphql-next-new/**/*.{ts,tsx,js,jsx}"]
       }
     }
   },

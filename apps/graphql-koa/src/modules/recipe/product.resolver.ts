@@ -42,6 +42,7 @@ class ProductResolver {
   }
 
   //*********** Subscription: Product created ************//
+
   @Subscription(() => Products, {
     topics: SUBSCRIPTION_EVENTS.PRODUCT_CREATED,
   })
