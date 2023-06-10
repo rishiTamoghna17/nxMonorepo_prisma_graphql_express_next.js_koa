@@ -21,7 +21,7 @@ class ProductService{
             user: user ? { connect: { id:(user) } } : undefined,
           }as Prisma.ProductCreateInput,
         });
-      }
+    }
 
     async getAllProducts(){
         //pagination add

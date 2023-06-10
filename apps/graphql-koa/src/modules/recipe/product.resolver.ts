@@ -26,13 +26,14 @@ class ProductResolver {
   //***********create product ************//
   @Authorized()
   @Mutation(() => Products)
-  createProduct(
+  async createProduct(
     @Args(() => CreateProductInput) input: CreateProductInput,
     @Ctx() context: Context
   ) {
-    const product = this.productService.createProduct(
+    // console.log(product)
+    const product = await this.productService.createProduct(
       input,
-      Number(input.userId) ?? context.user?.id
+      input.userId ?? context.user?.id
     );
     // console.log('Publishing PRODUCT_CREATED event');
     // Publish the created product to the subscription
@@ -52,15 +53,15 @@ class ProductResolver {
   //*********** Get all product ************//
   @Authorized()
   @Query(() => [Products])
-  getAllProducts() {
-    return this.productService.getAllProducts();
+  async getAllProducts() {
+    return await this.productService.getAllProducts();
   }
 
   //*********** Get product by ID ************//
   @Authorized()
   @Query(() => Products)
-  getProductById(@Args(() => GetProductInputById) input: GetProductInputById) {
-    return this.productService.getProductById(input);
+  async getProductById(@Args(() => GetProductInputById) input: GetProductInputById) {
+    return await this.productService.getProductById(input);
   }
 }
 export default ProductResolver;
