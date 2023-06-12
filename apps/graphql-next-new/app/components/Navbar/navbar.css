@@ -51,7 +51,7 @@ nav a:hover {
   background-color: #ece0a9;
   padding: 10px;
   height: 100%;
-  max-height: 45px;
+  max-height: 60px;
   width: 100%;
   max-width: 150px;
   right:100px;
@@ -63,6 +63,28 @@ nav a:hover {
 }
 .login-card:hover {
   color: #dd2020; /* Darker red color on hover */
+}
+.logout {
+  text-decoration: none;
+  color: #ff0000; /* Red color for logout button */
+  background-color: transparent;
+  border: none;
+  margin: 0 10px;
+  font-weight: bold;
+  font-size: 16px; /* Adjust the font size as desired */
+  transition: color 0.3s ease-in-out;
+  cursor: pointer;
+}
+.logout-hide{
+  display: none;
+}
+
+.logout:hover {
+  color: #311e1e; /* Darker red color on hover */
+}
+
+.logout:focus {
+  outline: none;
 }
 
 /* .login-card:focus {

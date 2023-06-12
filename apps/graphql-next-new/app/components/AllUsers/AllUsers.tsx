@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useQuery } from '@apollo/client';
 import { allUsers } from '../Graphql/queries/Queries';
 import { useRouter } from 'next/navigation';
@@ -7,30 +7,42 @@ import { useRouter } from 'next/navigation';
 import styles from './AllUser.module.css';
 
 function AllUser() {
-  const { data } = useQuery(allUsers, { fetchPolicy: 'no-cache' });
+  const { data, loading } = useQuery(allUsers, { fetchPolicy: 'no-cache' });
   const router = useRouter();
-  if (!data) {
-    return <p>Loading...</p>;
-  }
 
+
+    if (typeof window !== 'undefined') {
+      const token = localStorage.getItem('authToken');
+      if (!token) router.push('/signIn');
+      if (!data) {
+        return <p>Loading...</p>;
+      }
+    }
+  
+  // localStorage.removeItem("name of the item")
+  if (!data && loading) {
+    return <p className="loading">Loading...</p>;
+  }
   return (
     <div className={styles.cardContainer}>
-    {data.allUsers.map(user => (
-      <div key={user.id} className={styles.card}>
-        <h3 className={styles.name}>{user.name}</h3>
-        <p className={styles.email}>{user.email}</p>
-        <div className={styles.products}>
-          {user.products.map(product => (
-            <div key={product.id} className={styles.productCard}>
-              <h4 className={styles.productTitle}>{product.title}</h4>
-              <p className={styles.productDescription}>{product.description}</p>
-              <p className={styles.productPrice}>Price: {product.price}</p>
-            </div>
-          ))}
+      {data.allUsers.map((user) => (
+        <div key={user.id} className={styles.card}>
+          <h3 className={styles.name}>{user.name}</h3>
+          <p className={styles.email}>{user.email}</p>
+          <div className={styles.products}>
+            {user.products.map((product) => (
+              <div key={product.id} className={styles.productCard}>
+                <h4 className={styles.productTitle}>{product.title}</h4>
+                <p className={styles.productDescription}>
+                  {product.description}
+                </p>
+                <p className={styles.productPrice}>Price: {product.price}</p>
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
-    ))}
-  </div>
+      ))}
+    </div>
 
     // <div className={styles.allUserContainer}>
     //   <h2 className={styles.allUserHeading}>All Users</h2>
@@ -60,4 +72,3 @@ function AllUser() {
 // }
 
 export default AllUser;
-

@@ -31,7 +31,7 @@ function Navbar() {
           className={userDetail ? 'logout' : 'logout-hide'}
           onClick={handleLogout}
         >
-          clch here to logout
+          click here to logout
         </p>
       </div>
       {/* <p className='login-card'> {userDetail?`${userDetail?.name}`:"please Signin"}</p> */}
