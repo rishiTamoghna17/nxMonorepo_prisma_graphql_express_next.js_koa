@@ -1,7 +1,7 @@
 'use client';
 import './Login.css';
 import { useMutation } from '@apollo/client';
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Log_In } from '../Graphql/mutations/Mutation';
 function LoginUser() {
@@ -12,31 +12,34 @@ function LoginUser() {
   });
   const router = useRouter();
 
-  if (loading)  <p className="loading">Loading ....</p>;
-  if (error)  <p className="loading">` ${error.message}`</p>;
-
-
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (email === '' || password === '') alert('Enter fields');
-    
+
     await LogIn({ variables: { email, password } })
+    .catch((err) =>
+      // console.log(err.message),
+      window.location.reload()// Error occurred, refresh the page
+    );
 
     // localStorage.setItem('authToken', data.login.token);
     // console.log(data.login.token)
     // // console.log( localStorage.getItem('authorization'))
     // alert(`Congratulations,${data.login.name} you have successfully loggedin!`);
     // router.push('/');
-
   };
-  useEffect(() =>{
+  useEffect(() => {
     if (data) {
       localStorage.setItem('authToken', data.login.token);
-      alert(`Congratulations, ${data.login.name}, you have successfully logged in!`);
+      alert(
+        `Congratulations, ${data.login.name}, you have successfully logged in!`
+      );
       router.push('/');
     }
   }, [data, router]);
+
+  if (loading)  <p className="loading">Loading ....</p>;
+  // if (error)  <p className="loading">{error.message}</p>;
 
   return (
     <div className="card">

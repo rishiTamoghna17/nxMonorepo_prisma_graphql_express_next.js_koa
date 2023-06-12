@@ -10,22 +10,22 @@ function AllUser() {
   const { data, loading } = useQuery(allUsers, { fetchPolicy: 'no-cache' });
   const router = useRouter();
 
-
+  useEffect(() => {
     if (typeof window !== 'undefined') {
       const token = localStorage.getItem('authToken');
       if (!token) router.push('/signIn');
       if (!data) {
-        return <p>Loading...</p>;
+        <p>Loading...</p>;
       }
     }
-  
+  }, [router]);
   // localStorage.removeItem("name of the item")
   if (!data && loading) {
     return <p className="loading">Loading...</p>;
   }
   return (
     <div className={styles.cardContainer}>
-      {data.allUsers.map((user) => (
+      {data?.allUsers.map((user) => (
         <div key={user.id} className={styles.card}>
           <h3 className={styles.name}>{user.name}</h3>
           <p className={styles.email}>{user.email}</p>

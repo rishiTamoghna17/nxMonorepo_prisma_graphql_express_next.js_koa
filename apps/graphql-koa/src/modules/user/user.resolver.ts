@@ -51,7 +51,7 @@ class UserResolver {
 
   //************* all users *************//
   @Query(() => [Users], { nullable: true })
-  // @Authorized() // Add the @Authorized decorator
+  @Authorized() // Add the @Authorized decorator
   allUsers() {
     // console.log(context.user);
     return this.userService.allUsers();
