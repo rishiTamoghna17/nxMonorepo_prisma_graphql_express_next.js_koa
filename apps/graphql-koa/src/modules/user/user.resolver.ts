@@ -1,5 +1,19 @@
-import { Args, Authorized, Ctx, Int, Mutation, Query, Resolver } from 'type-graphql';
-import { CreateUserInput, Users, LoginInput, GetUserById } from './user.dto';
+import {
+  Args,
+  Authorized,
+  Ctx,
+  Int,
+  Mutation,
+  Query,
+  Resolver,
+} from 'type-graphql';
+import {
+  CreateUserInput,
+  Users,
+  LoginInput,
+  GetUserById,
+  Login,
+} from './user.dto';
 import UserService from './user.service';
 import bcrypt from 'bcrypt';
 import Context from '../../type/context';
@@ -9,9 +23,8 @@ class UserResolver {
   constructor(private userService: UserService) {
     this.userService = new UserService();
   }
-  
 
- //************* signup  *************//
+  //************* signup  *************//
   @Mutation(() => Users)
   async createUser(@Args(() => CreateUserInput) input: CreateUserInput) {
     // return this.prisma.user.create({ data: input });
@@ -21,42 +34,34 @@ class UserResolver {
     });
   }
 
-
   //************* login  *************//
-  @Mutation(() => String)
+  @Mutation(() => Login)
   async login(@Args(() => LoginInput) input: LoginInput) {
     // return this.prisma.user.create({ data: input });
-    return this.userService.login(
-      input
-    );
+    return this.userService.login(input);
   }
 
-
   //************* login user *************//
-  @Query(() => Users,{nullable:true})
+  @Query(() => Users, { nullable: true })
   @Authorized() // Add the @Authorized decorator
   loginUser(@Ctx() context: Context) {
     // console.log(context.user);
     return context.user;
   }
 
-
   //************* all users *************//
-  @Query(() => [Users],{nullable:true})
+  @Query(() => [Users], { nullable: true })
   // @Authorized() // Add the @Authorized decorator
   allUsers() {
     // console.log(context.user);
-    return this.userService.allUsers()
+    return this.userService.allUsers();
   }
-
 
   //************* user by id *************//
   @Query(() => Users)
   async getUserById(@Args(() => GetUserById) input: GetUserById) {
     return await this.userService.getUserById(input);
   }
-
-
 }
 
 export default UserResolver;

@@ -1,7 +1,7 @@
 'use client';
 import { useRouter } from 'next/navigation';
 import { useQuery } from '@apollo/client';
-import { getUserById } from "../../components/Graphql/queries/userQueries";
+import { getUserById } from "../../components/Graphql/queries/Queries";
 
 function UserDetail() {
   const router = useRouter();
