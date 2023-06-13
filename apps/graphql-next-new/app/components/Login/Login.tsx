@@ -14,13 +14,16 @@ function LoginUser() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (email === '' || password === '') alert('Enter fields');
+    if (email === '' || password === '') return alert('Enter fields');
 
-    await LogIn({ variables: { email, password } })
-    .catch((err) =>
-      // console.log(err.message),
-      window.location.reload()// Error occurred, refresh the page
-    );
+    try {
+      await LogIn({ variables: { email, password } });
+    } catch (err) {
+      alert(err.message);
+      setTimeout(() => {
+        window.location.reload(); // Error occurred, refresh the page  
+      }, 1000); // Delay of 1 seconds
+    }
 
     // localStorage.setItem('authToken', data.login.token);
     // console.log(data.login.token)
