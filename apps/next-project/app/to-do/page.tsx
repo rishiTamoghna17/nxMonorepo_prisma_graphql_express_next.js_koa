@@ -1,13 +1,15 @@
 'use client';
-import React, { useState } from 'react'
-import Tasks from '../components/Tasks'
+import './todo.css';
+import React, { useState } from 'react';
+import Tasks from '../components/Tasks';
 import dynamic from 'next/dynamic';
 import { useMutation } from '@apollo/client';
 import { Create_Tasks } from '../components/Graphql/mutations';
- 
-const DynamicTasks = dynamic(() => import('../components/Tasks'), {
-  loading: () => <p>Loading...</p>,
-});
+
+
+// const DynamicTasks = dynamic(() => import('../components/Tasks'), {
+//   loading: () => <p className="loading">Loading...</p>,
+// });
 function index() {
   const [CreateTasks, { data, loading, error }] = useMutation(Create_Tasks);
 
@@ -36,18 +38,24 @@ function index() {
       alert(err.message);
     }
   };
-  const myStyle = {
-    "height": "100%",
-    "width": "100%",
-    "display": "flex",
-    "justify-content": "center",
-    "align-items": "center"
+  if (!data && loading) {
+    return <p className="loading">Loading...</p>;
   }
+  if (error) return <p className="error">{error.message}</p>; 
+
+
   return (
-    <div >
-    <h1 style={myStyle}>Task List</h1>
-      {showCreateForm ? (
-        <form style={myStyle} onSubmit={handleSubmit}>
+    <div>
+      <h1 className='myStyle'>Task List</h1>
+      {!showCreateForm ? (
+        <button
+        className="shadow__btn"
+        type="button"
+        onClick={toggleCreateForm}>
+          Create Task
+        </button>
+      ) : (
+        <form className='myStyle' onSubmit={handleSubmit}>
           <input
             type="text"
             value={title}
@@ -59,16 +67,13 @@ function index() {
             Cancel
           </button>
         </form>
-      ) : (
-        <button type="button" onClick={toggleCreateForm}>
-          Create Task
-        </button>
       )}
-    
-    <DynamicTasks />
-  </div>
+  <Tasks/>
 
-  )
+  {/* <DynamicTasks /> */}
+
+    </div>
+  );
 }
 
-export default index
+export default index;
