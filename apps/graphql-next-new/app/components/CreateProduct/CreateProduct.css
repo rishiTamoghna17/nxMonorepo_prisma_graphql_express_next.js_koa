@@ -1,0 +1,83 @@
+.create-product-container {
+  position: fixed;
+  top: 50px;
+  left: 500px;
+  /* transform: translate(-50%, -50%);*/
+  z-index: 9999; 
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.create-product-container h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.create-product-container form {
+  display: flex;
+  flex-direction: column;
+}
+
+.create-product-container label {
+  font-size: 16px;
+  margin-bottom: 8px;
+  color: #555;
+}
+
+.create-product-container input[type="text"],
+.create-product-container input[type="checkbox"] {
+  padding: 10px;
+  margin-bottom: 16px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.create-product-container button[type="submit"],
+.create-product-container button[type="button"] {
+  padding: 12px 16px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.create-product-container button[type="button"] {
+  background-color: #f5f5f5;
+  color: #131212;
+  font-size: 25px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.create-product-container button[type="submit"]:hover,
+.create-product-container button[type="button"]:hover {
+  background-color: #0056b3;
+}
+
+.create-product-container button[type="submit"]:focus,
+.create-product-container button[type="button"]:focus {
+  outline: none;
+}
+
+.loading {
+  text-align: center;
+  font-size: 18px;
+  color: #555;
+}
+
+.error {
+  text-align: center;
+  font-size: 18px;
+  color: #ff0000;
+  margin-top: 20px;
+}

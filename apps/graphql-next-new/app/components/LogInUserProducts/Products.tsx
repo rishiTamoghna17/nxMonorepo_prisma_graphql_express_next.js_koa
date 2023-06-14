@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useMutation, useQuery } from '@apollo/client';
 import { useRouter } from 'next/navigation';
 import { get_LoginUser } from '../Graphql/queries/Queries';
-import CreateProduct from '../CreateProduct/CreateProduct';
+import CreateProduct from '../CreateProduct/CreateProduct.tsx';
 // import Allproducts from '../All products/Allproducts';
 function Products() {
   const { loading, error, data } = useQuery(get_LoginUser, {
