@@ -1,0 +1,82 @@
+.navbar-style {
+  background-color: #c7c5c5;
+  padding: 10px;
+  position: relative; 
+  align-items: center;
+}
+
+.styles-title {
+  font-size: 30px;
+  color: #f79263;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.create-product-button-container {
+  display: flex;
+  align-items: center;
+  position: absolute; 
+  top: 15px; /* Adjust top value as needed */
+  left: 200px;
+}
+
+.btn-class {
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.my-products {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+  justify-items: center;
+}
+
+.styles-card {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 20px;
+  text-align: center;
+}
+
+.styles-name {
+  font-size: 18px;
+  color: #333;
+  margin: 0;
+}
+
+.styles-description {
+  color: #666;
+  margin: 10px 0;
+}
+
+.styles-price {
+  font-weight: bold;
+  margin: 0;
+}
+
+.styles-thumbsUp {
+  color: #999;
+  margin: 0;
+}
+
+.loading {
+  text-align: center;
+  font-size: 18px;
+  color: #555;
+}
+
+.error {
+  text-align: center;
+  font-size: 18px;
+  color: #ff0000;
+  margin-top: 20px;
+}

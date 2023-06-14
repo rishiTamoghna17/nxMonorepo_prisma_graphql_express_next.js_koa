@@ -15,8 +15,8 @@ export class Products {
   @Field(() => String)
   price: string;
 
-  @Field(() => [Users],{ nullable: true })
-  user: Users[]| null;
+  @Field(() => Users,{ nullable: true })
+  user: Users| null;
 
   @Field(() => Boolean)
   thumbsUp: boolean;

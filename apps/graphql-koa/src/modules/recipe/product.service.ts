@@ -25,7 +25,11 @@ class ProductService{
 
     async getAllProducts(){
         //pagination add
-        return await prisma.product.findMany();
+        return await prisma.product.findMany({
+          include: {
+            user:true
+          
+        }});
     }
 
     async getProductById(title:GetProductInputById){

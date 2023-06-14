@@ -32,6 +32,21 @@ export const allUsers = gql`
     }
   }
 `;
+export const All_Products = gql`
+query GetAllProducts {
+  getAllProducts {
+    id
+    title
+    description
+    price
+    thumbsUp
+    user {
+      id
+      name
+      email
+    }
+  }
+}`;
 
 export const getUserById = gql`
   query GetUserById($getUserByIdId: ID!) {
