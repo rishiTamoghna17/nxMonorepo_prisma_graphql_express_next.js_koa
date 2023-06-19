@@ -7,7 +7,7 @@ import { get_LoginUser } from '../Graphql/queries/Queries';
 import CreateProduct from '../CreateProduct/CreateProduct.tsx';
 // import Allproducts from '../All products/Allproducts';
 function Products() {
-  const { loading, error, data } = useQuery(get_LoginUser, {
+  const { loading, error, data, refetch } = useQuery(get_LoginUser, {
     fetchPolicy: 'no-cache', // Doesn't check cache before making a network request
   });
 
@@ -36,6 +36,12 @@ function Products() {
   //   // Logic to handle creating a product goes here
 
   // };
+  const handleCreateProduct = () => {
+    // Logic to handle creating a product goes here
+    // Once the product is created successfully, call the refetch function to update the data
+    refetch();
+  };
+  
   return (
     <>
       <div className="navbar-style">

@@ -1,0 +1,82 @@
+.user-detail {
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .user-heading {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .user-heading-id,
+  .user-heading-name,
+  .user-heading-email {
+    margin-bottom: 5px;
+  }
+  
+  .product-heading {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  
+  .product-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  .productCard {
+    flex: 1 1 300px;
+    height: 200px;
+    border-radius: 8px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: #f2f2f2;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .productCard:nth-child(odd) {
+    background-color: #f5dcdc;
+  }
+  
+  .productCard:nth-child(even) {
+    background-color: #dff5dc;
+  }
+  
+  .productTitle {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .productDescription {
+    margin-bottom: 5px;
+  }
+  
+  .productPrice {
+    font-size: 14px;
+    margin-bottom: 5px;
+  }
+  
+  .productThumbsUp,
+  .productThumbsDown {
+    font-size: 20px;
+    margin-bottom: 5px;
+  }
+  
+  .productThumbsUp {
+    color: green;
+  }
+  
+  .productThumbsDown {
+    color: red;
+  }
+  
+  .no-products {
+    font-style: italic;
+    color: #888;
+  }
+  
