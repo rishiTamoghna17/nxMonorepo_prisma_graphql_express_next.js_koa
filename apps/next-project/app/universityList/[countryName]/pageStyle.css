@@ -58,4 +58,84 @@
   .card:nth-child(4n+4) {
     background-color: #7bff5f;
   }
+  /* css for pagination */
+  .pagination {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+  
+  .pagination button,
+  .pagination span {
+    margin: 0 5px;
+    padding: 8px 12px;
+    border: none;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+  }
+  
+  .pagination button:focus {
+    outline: none;
+  }
+  
+  .pagination span {
+    font-weight: bold;
+  }
+  
+  .pagination button.pagination-button-prev::before,
+  .pagination button.pagination-button-next::after {
+    content: "";
+    display: inline-block;
+    vertical-align: middle;
+    width: 10px;
+    height: 10px;
+    border-style: solid;
+    border-width: 2px 2px 0 0;
+    transform: rotate(-45deg);
+  }
+  
+  .pagination button.pagination-button-prev::before {
+    margin-right: 8px;
+    transform: rotate(-135deg);
+  }
+  
+  .pagination button.pagination-button-next::after {
+    margin-left: 8px;
+    transform: rotate(45deg);
+  }
+  
+  .pagination button:hover {
+    background-color: #0056b3;
+  }
+  
+  .pagination button:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+
+  .pagination-button-number {
+  margin: 0 5px;
+  padding: 8px 12px;
+  border: none;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+.pagination-button-number:hover {
+  background-color: #0056b3;
+}
+
+.pagination-button-number.active {
+  background-color: #0056b3;
+}
+
+  
   
