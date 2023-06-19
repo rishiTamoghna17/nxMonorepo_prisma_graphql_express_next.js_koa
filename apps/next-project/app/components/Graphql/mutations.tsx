@@ -8,4 +8,18 @@ mutation CreateTask($title:String! ) {
     isComplete
   }
 }
-`
+`;
+
+export const Update_Tasks = gql`
+mutation UpdateTask ($id:Int!,$isComplete:Boolean){
+  updateTask(id:$id,isComplete:$isComplete){
+    id
+    isComplete
+    title
+  }
+}`;
+
+export const Delete_Tasks = gql`
+mutation DeleteTask($id:Int!){
+  deleteTask(id:$id)
+}`;

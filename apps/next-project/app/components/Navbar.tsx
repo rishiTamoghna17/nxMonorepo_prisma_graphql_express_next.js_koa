@@ -17,9 +17,9 @@ function Navbar() {
     <nav>
       <Link href="/">Home</Link>
       <Link href="/to-do">to-do List</Link>
-      <Link href="/universityList/India">university List</Link>
-      <Link href="/formdata">form data</Link>
-      <Link href="/userDetails">User Details</Link>
+      <Link href="/universityList">universities</Link>
+      <Link href="/formdata">contact us</Link>
+      <Link href="/userDetails">users</Link>
       <Link href="/signUp">register</Link>
       <div className="login-card">
         <Link href="/login">
