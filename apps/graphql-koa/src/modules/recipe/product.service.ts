@@ -1,44 +1,47 @@
-import { Prisma, prisma } from "@xyz/mylib/prisma";
-import { CreateProductInput, GetProductInputById } from "./product.dto";
-import { ApolloError } from "apollo-server-koa";
-import { Users } from "../user/user.dto";
+import { Prisma, prisma } from '@xyz/mylib/prisma';
+import { CreateProductInput, GetProductInputById } from './product.dto';
+import { ApolloError } from 'apollo-server-koa';
+import { Users } from '../user/user.dto';
 
-class ProductService{
-    async createProduct(input: CreateProductInput, user: Users["id"]) {
-        const existingProduct = await prisma.product.findUnique({
-          where: {
-            title: input.title,
-          },
-        });
-    
-        if (existingProduct) {
-          throw new ApolloError('Product already exists');
-        }
-    
-        return prisma.product.create({
-          data: {
-            ...input,
-            user: user ? { connect: { id:(user) } } : undefined,
-          }as Prisma.ProductCreateInput,
-        });
+class ProductService {
+  async createProduct(input: CreateProductInput, user: Users['id']) {
+    const existingProduct = await prisma.product.findUnique({
+      where: {
+        title: input.title,
+      },
+    });
+
+    if (existingProduct) {
+      throw new ApolloError('Product already exists');
     }
 
-    async getAllProducts(){
-        //pagination add
-        return await prisma.product.findMany({
-          include: {
-            user:true
-          
-        }});
-    }
+    return prisma.product.create({
+      data: {
+        ...input,
+        user: user ? { connect: { id: user } } : undefined,
+      } as Prisma.ProductCreateInput,
+    });
+  }
 
-    async getProductById(title:GetProductInputById){
-        const user=  await prisma.product.findUnique({
-            where:{
-                    id:Number(title.id),
-                }
-        })
-        return user
-    }
+  async getAllProducts() {
+    //pagination add
+    return await prisma.product.findMany({
+      include: {
+        user: true,
+      },
+    });
+  }
+
+  async getProductById(title: GetProductInputById) {
+    const user = await prisma.product.findUnique({
+      where: {
+        id: Number(title.id),
+      },
+      include: {
+        user: true,
+      },
+    });
+    return user;
+  }
 }
-export default ProductService
+export default ProductService;

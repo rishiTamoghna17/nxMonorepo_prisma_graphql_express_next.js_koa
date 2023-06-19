@@ -60,5 +60,5 @@ export class Login {
 @ArgsType()
 export class GetUserById {
   @Field(() => ID, { nullable: false })
-  id: string;
+  id: number;
 }

@@ -67,7 +67,10 @@ class UserService {
       {
         where: {
           id:Number(input.id),
-        }
+        },
+        include: {
+          products: true,
+        },
       }
       
     );
