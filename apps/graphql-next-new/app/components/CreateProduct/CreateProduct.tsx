@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { Create_Product } from '../Graphql/mutations/Mutation';
 import { useMutation } from '@apollo/client';
 
-function CreateProduct({toggleCreateForm}) {
+function CreateProduct({toggleCreateForm,refetch}) {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [price, setPrice] = useState('');
@@ -30,6 +30,7 @@ function CreateProduct({toggleCreateForm}) {
       setPrice('');
       setThumbsUp(false);
       toggleCreateForm(); 
+      refetch()
     } catch (err) {
       alert(err.message);
     }

@@ -1,6 +1,7 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import "./pageStyle.css";
+import { useRouter } from 'next/navigation';
 
 async function getPageData(countryName: string, page: number) {
   const res = await fetch(
@@ -18,6 +19,7 @@ async function getPageData(countryName: string, page: number) {
 const PAGE_SIZE = 10; // Number of universities to display per page
 
 export default function Page({ params: { countryName } }) {
+  const router = useRouter();
   const [currentPage, setCurrentPage] = useState(1);
   const [data, setData] = useState([]);
   const [totalPages, setTotalPages] = useState(1);
@@ -56,6 +58,7 @@ export default function Page({ params: { countryName } }) {
 
   return (
     <div className="university-list">
+      <button className="back-button" onClick={() => router.push("/universityList")}>◀</button>
       <ul className="university-list">
         {universityList.map((item, index) => (
           <div className="card" key={index}>

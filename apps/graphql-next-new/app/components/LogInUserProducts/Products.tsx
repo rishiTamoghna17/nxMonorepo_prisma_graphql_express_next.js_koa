@@ -48,7 +48,7 @@ function Products() {
         <p className="styles-title">my products</p>
         <div className="create-product-button-container">
           {showCreateForm ? (
-            <CreateProduct toggleCreateForm={toggleCreateForm} />
+            <CreateProduct toggleCreateForm={toggleCreateForm} refetch={refetch} />
           ) : (
             <button className="btn-class" onClick={toggleCreateForm}>
               Create product
